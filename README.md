@@ -24,13 +24,14 @@
   ````  
 并在js中启动
 
-    	/**
+        /**
 		 * 设置
 		 * start: true or false 默认开始
 		 * speed：2000 轮播速度 默认2000 单位：ms
-		 * 
+		 * animate: "horizontal"||"opacity" horizontal为横向轮播 opacity为渐变消失
 		 */
     $('.slide').slide({
           start:true,
-          speed:2000
-      });
+          speed:2000,
+          animate: 'horizontal'
+    });

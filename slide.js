@@ -10,15 +10,17 @@
 		 * 默认设置
 		 * start: true or false 默认开始
 		 * speed：2000 轮播速度 默认2000 单位：ms
-		 * 
+		 * animate: "horizontal"||"opacity" horizontal为横向轮播 opacity为渐变消失
 		 */
 		this.defaults = {
 			start: true,
-			speed: 2000
+			speed: 2000,
+			animate: "horizontal"
 		}
 		opts = $.extend({}, this.defaults, options);
 		this.each(function () {
 			var slideContainer = $(this).find('.slide-container');
+			var animate = opts.animate;
 			var slide = slideContainer.find('li');
 			var count = slide.length;
 			var index = 0;
@@ -26,7 +28,6 @@
 			var _this = this;
 			var speed = opts.speed||2000;
 			$(this).data('opts',opts);
-			console.log(slide);
 			$(slide[0]).show();
 			//向页面增加前进后退按钮元素
 			var ctrlHtml 
@@ -102,14 +103,45 @@
 				});
 			});
 
+			switch(opts.animate){
+                case "horizontal":
+                    opts['width'] = $(this).width();
+                    slideContainer.wrap('<div class="slide-horizontal"></div>');
+                    slide.css('left', -opts['width']);
+                    $(slide[0]).css('left', 0);
+                    slide.show();
+                    break;
+                case "opacity":
+                	 slideContainer.css({
+                	 	'position': 'relative'
+                	 });
+                	 slide.css('display', 'none');
+                	 $(slide[0]).show();   
+            }
+
 			start();
 		});
 	};
 	function change(showIndex, hideIndex) {
 		var opts = $(this).data('opts');
-		$(this).find('.slide-container li').eq(hideIndex).stop().hide().animate({opacity: 0});
-		$(this).find('.slide-tabs li').eq(hideIndex).css({opacity: 0.7});
-		$(this).find('.slide-tabs li').eq(showIndex).css({opacity: 1});
-		$(this).find('.slide-container li').eq(showIndex).show().css({opacity: 0}).stop().animate({opacity: 1});
+		if (opts.animate == "horizontal") {
+			console.log(opts['width']);
+			var slide = $(this).find('.slide-container li');
+			var x = showIndex % (slide.length);
+			var y = hideIndex % (slide.length);
+
+			var slideWidth = opts['width'];
+			slide.eq(x).stop().css("left", slideWidth).addClass("active").animate({left: 0});
+			slide.eq(y).stop().css("left", 0).animate({left: -slideWidth}, function (){
+				slide.eq(x).removeClass('active');
+			});
+			$(this).find('.slide-tabs li').eq(hideIndex).css({opacity: 0.7});
+			$(this).find('.slide-tabs li').eq(showIndex).css({opacity: 1});
+		}else {
+			$(this).find('.slide-container li').eq(hideIndex).stop().hide().animate({opacity: 0});
+			$(this).find('.slide-tabs li').eq(hideIndex).css({opacity: 0.7});
+			$(this).find('.slide-tabs li').eq(showIndex).css({opacity: 1});
+			$(this).find('.slide-container li').eq(showIndex).show().css({opacity: 0}).stop().animate({opacity: 1});
+		}
 	};
 })(jQuery);
