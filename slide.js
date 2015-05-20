@@ -30,13 +30,13 @@
 			$(slide[0]).show();
 			//增加前进后退按钮元素
 			var ctrlHtml 
-			= '<a href="javascript:;" class="ctrl-slide prev">上一个</a>'
-			+ '<a href="javascript:;" class="ctrl-slide next">下一个</a>';
+			= '<a href="javascript:;" class="ctrl-slide prev"></a>'
+			+ '<a href="javascript:;" class="ctrl-slide next"></a>';
 			$('.slide').append(ctrlHtml);
 			var pageIndex 
 			= '<ul class="slide-tabs">';
 			for (var i=0; i<count;i++) {
-				pageIndex += '<li><a href="#" class="slide-a">d</a></li>'
+				pageIndex += '<li><a href="#" class="slide-a"></a></li>'
 			}
 			pageIndex += '</ul>';
 			$('.slide').append(pageIndex);
@@ -69,8 +69,8 @@
 
 			$(this).find('.prev').on('click', function () {
 				var old = index;
-						if (index >= count - 1) {
-							index = 0;
+						if (index <= 0) {
+							index = count - 1;
 						}
 						else {
 							index--;
@@ -90,7 +90,7 @@
 				if (opts.start) {
 					start();
 				}
-				$(this).find('.ctrl-slide').css({opacity:0.15});
+				$(this).find('.ctrl-slide').css({opacity:0});
 			})
 			$(this).find('.slide-tabs li').each(function (aIndex) {
 				$(this).on('click.slide-tabs', function () {
@@ -105,6 +105,8 @@
 	function change(showIndex, hideIndex) {
 		var opts = $(this).data('opts');
 		$(this).find('.slide-container li').eq(hideIndex).stop().hide().animate({opacity: 0});
+		$(this).find('.slide-tabs li').eq(hideIndex).css({opacity: 0.7});
+		$(this).find('.slide-tabs li').eq(showIndex).css({opacity: 1});
 		$(this).find('.slide-container li').eq(showIndex).show().css({opacity: 0}).stop().animate({opacity: 1});
 	};
 })(jQuery);
