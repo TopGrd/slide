@@ -59,24 +59,24 @@
 
 			$(this).find('.next').on('click', function () {
 				var old = index;
-						if (index >= count - 1) {
-							index = 0;
-						}
-						else {
-							index++;
-						}
+				if (index >= count - 1) {
+					index = 0;
+				}
+				else {
+					index++;
+				}
 				change.call(_this, index, old);
 
 			});
 
 			$(this).find('.prev').on('click', function () {
 				var old = index;
-						if (index <= 0) {
-							index = count - 1;
-						}
-						else {
-							index--;
-						}
+				if (index <= 0) {
+					index = count - 1;
+				}
+				else {
+					index--;
+				}
 				change.call(_this, index, old);
 
 			});
