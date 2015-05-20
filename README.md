@@ -1,5 +1,5 @@
 # slide
-轮播插件
+响应式轮播插件
 
 #使用方法： 
 在页面中写入  
@@ -14,17 +14,17 @@
               <a href=""><img src="img/2.png" alt=""></a>  
           </li>    
           <li>    
-              <a href="javascript:;"><img src="img/3.png" alt=""></a>  
+              <a href=""><img src="img/3.png" alt=""></a>  
           </li>   
           <li>  
-              <a href="javascript:;"><img src="img/4.png" alt=""></a>  
+              <a href=""><img src="img/4.png" alt=""></a>  
           </li>  
       </ul>  
   </div>
   ````  
 并在js中启动
 
-    /**
+    	/**
 		 * 设置
 		 * start: true or false 默认开始
 		 * speed：2000 轮播速度 默认2000 单位：ms
