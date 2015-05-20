@@ -28,7 +28,7 @@
 			$(this).data('opts',opts);
 			console.log(slide);
 			$(slide[0]).show();
-			//增加前进后退按钮元素
+			//向页面增加前进后退按钮元素
 			var ctrlHtml 
 			= '<a href="javascript:;" class="ctrl-slide prev"></a>'
 			+ '<a href="javascript:;" class="ctrl-slide next"></a>';
@@ -38,6 +38,7 @@
 			for (var i=0; i<count;i++) {
 				pageIndex += '<li><a href="#" class="slide-a"></a></li>'
 			}
+			//向页面增加trigger
 			pageIndex += '</ul>';
 			$('.slide').append(pageIndex);
 			function start() {
@@ -78,7 +79,7 @@
 				change.call(_this, index, old);
 
 			});
-
+			//鼠标划入暂停
 			$(this).on('mouseover', function () {
 				if (opts.start) {
 					clearInterval(time);
@@ -92,6 +93,8 @@
 				}
 				$(this).find('.ctrl-slide').css({opacity:0});
 			})
+
+			//trigger
 			$(this).find('.slide-tabs li').each(function (aIndex) {
 				$(this).on('click.slide-tabs', function () {
 					change.call(_this, aIndex, index);
