@@ -59,25 +59,25 @@
 
 			$(this).find('.next').on('click', function () {
 				var old = index;
-				if (index >= count - 1) {
-					index = 0;
-				}
-				else {
-					index++;
-				}
+						if (index >= count - 1) {
+							index = 0;
+						}
+						else {
+							index++;
+						}
 				change.call(_this, index, old);
 
 			});
 
 			$(this).find('.prev').on('click', function () {
 				var old = index;
-				if (index <= 0) {
-					index = count - 1;
-				}
-				else {
-					index--;
-				}
-				change.call(_this, index, old);
+						if (index <= 0) {
+							index = count - 1;
+						}
+						else {
+							index--;
+						}
+				change.call(_this, index, old, 'left');
 
 			});
 			//鼠标划入暂停
@@ -98,7 +98,13 @@
 			//trigger
 			$(this).find('.slide-tabs li').each(function (aIndex) {
 				$(this).on('click.slide-tabs', function () {
-					change.call(_this, aIndex, index);
+					if (aIndex<index) {
+						change.call(_this, aIndex, index, 'left');
+					}
+					else {
+						change.call(_this, aIndex, index);
+					}
+					
 					index = aIndex;
 				});
 			});
@@ -106,7 +112,6 @@
 			switch(opts.animate){
                 case "horizontal":
                     opts['width'] = $(this).width();
-                    slideContainer.wrap('<div class="slide-horizontal"></div>');
                     slide.css('left', -opts['width']);
                     $(slide[0]).css('left', 0);
                     slide.show();
@@ -122,22 +127,33 @@
 			start();
 		});
 	};
-	function change(showIndex, hideIndex) {
+
+	function change(showIndex, hideIndex, left) {
 		var opts = $(this).data('opts');
+		var slideContainer = $(this).find('.slide-container');
+		var slide = $(this).find('.slide-container li');
 		if (opts.animate == "horizontal") {
 			console.log(opts['width']);
-			var slide = $(this).find('.slide-container li');
 			var x = showIndex % (slide.length);
 			var y = hideIndex % (slide.length);
-
 			var slideWidth = opts['width'];
-			slide.eq(x).stop().css("left", slideWidth).addClass("active").animate({left: 0});
-			slide.eq(y).stop().css("left", 0).animate({left: -slideWidth}, function (){
-				slide.eq(x).removeClass('active');
-			});
+			if (left == 'left') {
+				slide.eq(x).stop().css("left", -slideWidth).addClass("active").animate({left: 0});
+				slide.eq(y).stop().css("left", 0).animate({left: slideWidth}, function (){
+					slide.eq(x).removeClass('active');
+				});
+			}
+			else {
+				slide.eq(x).stop().css("left", slideWidth).addClass("active").animate({left: 0});
+				slide.eq(y).stop().css("left", 0).animate({left: -slideWidth}, function (){
+					slide.eq(x).removeClass('active');
+				});
+			}
+			
 			$(this).find('.slide-tabs li').eq(hideIndex).css({opacity: 0.7});
 			$(this).find('.slide-tabs li').eq(showIndex).css({opacity: 1});
-		}else {
+		}
+		else {
 			$(this).find('.slide-container li').eq(hideIndex).stop().hide().animate({opacity: 0});
 			$(this).find('.slide-tabs li').eq(hideIndex).css({opacity: 0.7});
 			$(this).find('.slide-tabs li').eq(showIndex).css({opacity: 1});
