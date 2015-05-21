@@ -51,7 +51,7 @@
 						}
 						else {
 							index++;
-						}
+					    }
 						change.call(_this, index, old);
 					}, speed);
 				}
