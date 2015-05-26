@@ -34,4 +34,5 @@
           start:true,
           speed:2000,
           animate: 'horizontal'
-    });
+    });  
+Demo: [http://dwz.cn/LNwtz](http://dwz.cn/LNwtz)   所使用的轮播
