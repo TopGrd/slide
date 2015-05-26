@@ -101,6 +101,9 @@
 					if (aIndex<index) {
 						change.call(_this, aIndex, index, 'left');
 					}
+					else if (aIndex == index) {
+						
+					}
 					else {
 						change.call(_this, aIndex, index);
 					}
