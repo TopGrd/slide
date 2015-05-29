@@ -136,7 +136,6 @@
 		var slideContainer = $(this).find('.slide-container');
 		var slide = $(this).find('.slide-container li');
 		if (opts.animate == "horizontal") {
-			console.log(opts['width']);
 			var x = showIndex % (slide.length);
 			var y = hideIndex % (slide.length);
 			var slideWidth = opts['width'];
