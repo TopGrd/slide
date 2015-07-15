@@ -1,6 +1,6 @@
 /**
  * Creator: Li'Zhuo(lizhuo04@baidu.com||topgrd@outlook.com)
- * Think First, Code Later
+ * Think First, Code Later !
  * Date: 2015-05-18
  * Time: 16:00
  */
